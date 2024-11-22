@@ -15,24 +15,30 @@ function Home() {
       age: 40,
       email: 'bia@email.com',
     },
+    {
+      id: 'xzcvvbcvyruyiouyio',
+      name: 'Lusia',
+      age: 45,
+      email: 'Lusia@email.com',
+    },
   ]
 
   return (
     <div className='container'>
       <form>
         <h1>Cadastro de Usuários</h1>
-        <input name='nome' type='text' />
-        <input name='idade' type='number' />
-        <input name='email' type='email' />
+        <input placeholder='Nome' name='nome' type='text' />
+        <input placeholder='Idade' name='idade' type='number' />
+        <input placeholder='Email' name='email' type='email' />
         <button type='button'>Cadastro</button>
       </form>
 
       {users.map(user => (
-        <div>
+        <div key={user.id} className='card'>
           <div>
-            <p>Nome:</p>
-            <p>Idade</p>
-            <p>Email</p>
+            <p>Nome: <span>{user.name}</span></p>
+            <p>Idade: <span>{user.age}</span></p>
+            <p>Email: <span>{user.email}</span></p>
           </div>
           <button>
             <img src={Trash} />
