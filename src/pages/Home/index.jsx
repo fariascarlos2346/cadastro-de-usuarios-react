@@ -1,10 +1,14 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import './style.css'
 import Trash from '../../assets/trash.png'
 import api from '../../../services/api'
 
 function Home() {
   const [users, setUsers] = useState([])
+
+  const inputName = useRef()
+  const inputAge = useRef()
+  const inputEmail = useRef()
 
   async function getUsers(){
    const usersFromApi = await api.get('/usuarios')
@@ -21,9 +25,9 @@ function Home() {
     <div className='container'>
       <form>
         <h1>Cadastro de Usuários</h1>
-        <input placeholder='Nome' name='nome' type='text' />
-        <input placeholder='Idade' name='idade' type='number' />
-        <input placeholder='Email' name='email' type='email' />
+        <input placeholder='Nome' name='nome' type='text' ref={inputName} />
+        <input placeholder='Idade' name='idade' type='number' ref={inputAge} />
+        <input placeholder='Email' name='email' type='email' ref={inputEmail} />
         <button type='button'>Cadastro</button>
       </form>
 
