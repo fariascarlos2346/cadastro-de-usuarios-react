@@ -11,9 +11,26 @@ function Home() {
   const inputEmail = useRef()
 
   async function getUsers(){
-   const usersFromApi = await api.get('/usuarios')
+    const usersFromApi = await api.get('/usuarios')
+  
+    setUsers(usersFromApi.data)
+  }
 
-   setUsers(usersFromApi.data)
+  async function createUsers(){
+
+    await api.post('/usuarios', {
+      name: inputName.current.value,
+      age: inputAge.current.value,
+      email: inputEmail.current.value
+    })
+    
+    getUsers()
+  }
+
+  async function deleteUsers(id){
+    await api.delete(`/usuarios/${id}`)
+
+    getUsers()
   }
 
   useEffect(() => {
@@ -28,7 +45,7 @@ function Home() {
         <input placeholder='Nome' name='nome' type='text' ref={inputName} />
         <input placeholder='Idade' name='idade' type='number' ref={inputAge} />
         <input placeholder='Email' name='email' type='email' ref={inputEmail} />
-        <button type='button'>Cadastro</button>
+        <button type='button' onClick={createUsers}>Cadastro</button>
       </form>
 
       {users.map(user => (
@@ -38,7 +55,7 @@ function Home() {
             <p>Idade: <span>{user.age}</span></p>
             <p>Email: <span>{user.email}</span></p>
           </div>
-          <button>
+          <button onClick={() =>deleteUsers(user.id)}>
             <img src={Trash} />
           </button>
         </div>
